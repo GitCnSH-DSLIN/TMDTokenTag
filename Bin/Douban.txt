@@ -1,0 +1,446 @@
+<div class="indent">
+        
+
+
+
+
+
+<div class="">
+    <p class="ul first"></p>
+    <table width="100%" class="">
+        <tbody><tr class="item">
+            <td width="100" valign="top">
+                
+
+                    <a class="nbg" href="https://movie.douban.com/subject/26270502/" title="绣春刀II：修罗战场">
+                        <img src="https://img1.doubanio.com/view/movie_poster_cover/spst/public/p2492665487.webp" width="75" alt="绣春刀II：修罗战场" class="">
+                    </a>
+            </td>
+
+            <td valign="top">
+                
+
+                <div class="pl2">
+
+                    <a href="https://movie.douban.com/subject/26270502/" class="">
+                        绣春刀II：修罗战场
+                         / <span style="font-size:13px;">绣春刀2：修罗战场 / 绣春刀：修罗场</span>
+                    </a>
+
+
+                        <span style="font-size: 13px; padding-left: 3px; color: #00A65F;">[可播放]</span>
+
+                    <p class="pl">2017-06-18(上海电影节) / 2017-07-19(中国大陆) / 张震 / 杨幂 / 张译 / 雷佳音 / 辛芷蕾 / 金士杰 / 刘端端 / 武强 / 杨轶 / 李媛 / 吴晓亮 / 李洪涛 / 刘峰超 / 袁文康 / 马赫 / 刘亭作 / 姜晓冲 / 陈齐威 / 王仁君 / 周一围 / 中国大陆 / 路阳 / 120分钟...</p>
+
+                    
+
+
+                        
+                        <div class="star clearfix">
+                                <span class="allstar40"></span>
+                                <span class="rating_nums">7.4</span>
+                                <span class="pl">(141354人评价)</span>
+
+                        </div>
+
+
+                </div>
+
+            </td>
+        </tr>
+    </tbody></table>
+    <div id="collect_form_26270502"></div>
+    <p class="ul"></p>
+    <table width="100%" class="">
+        <tbody><tr class="item">
+            <td width="100" valign="top">
+                
+
+                    <a class="nbg" href="https://movie.douban.com/subject/26445216/" title="军舰岛">
+                        <img src="https://img1.doubanio.com/view/movie_poster_cover/spst/public/p2462745948.webp" width="75" alt="军舰岛" class="">
+                    </a>
+            </td>
+
+            <td valign="top">
+                
+
+                <div class="pl2">
+
+                    <a href="https://movie.douban.com/subject/26445216/" class="">
+                        军舰岛
+                        / <span style="font-size:13px;">Battleship Island</span>
+                    </a>
+
+
+
+                    <p class="pl">2017-07-26(韩国) / 黄晸玟 / 苏志燮 / 宋仲基 / 李贞贤 / 李璟荣 / 金秀安 / 韩国 / 柳昇完 / 132分钟 / 151分钟（导演版） / 军舰岛 / 剧情 / 动作 / 历史 / 柳昇完 Seung-wan Ryoo / 申庆一 / 韩语</p>
+
+                    
+
+
+                        
+                        <div class="star clearfix">
+                                <span class="allstar40"></span>
+                                <span class="rating_nums">7.7</span>
+                                <span class="pl">(8980人评价)</span>
+
+                        </div>
+
+
+                </div>
+
+            </td>
+        </tr>
+    </tbody></table>
+    <div id="collect_form_26445216"></div>
+    <p class="ul"></p>
+    <table width="100%" class="">
+        <tbody><tr class="item">
+            <td width="100" valign="top">
+                
+
+                    <a class="nbg" href="https://movie.douban.com/subject/6311303/" title="加勒比海盗5：死无对证">
+                        <img src="https://img3.doubanio.com/view/movie_poster_cover/spst/public/p2459723975.webp" width="75" alt="加勒比海盗5：死无对证" class="">
+                    </a>
+            </td>
+
+            <td valign="top">
+                
+
+                <div class="pl2">
+
+                    <a href="https://movie.douban.com/subject/6311303/" class="">
+                        加勒比海盗5：死无对证
+                        / <span style="font-size:13px;">加勒比海盗：恶灵启航(港) / 加勒比海盗 神鬼奇航：死无对证(台)</span>
+                    </a>
+
+
+                        <span style="font-size: 13px; padding-left: 3px; color: #00A65F;">[可播放]</span>
+
+                    <p class="pl">2017-05-26(中国大陆) / 2017-05-26(美国) / 约翰尼·德普 / 哈维尔·巴登 / 杰弗里·拉什 / 布伦顿·思韦茨 / 卡雅·斯考达里奥 / 凯文·麦克纳利 / 格什菲·法拉哈尼 / 奥兰多·布鲁姆 / 凯拉·奈特莉 / 斯蒂芬·格拉汉姆 / 大卫·文翰 / 保罗·麦卡特尼...</p>
+
+                    
+
+
+                        
+                        <div class="star clearfix">
+                                <span class="allstar40"></span>
+                                <span class="rating_nums">7.3</span>
+                                <span class="pl">(154136人评价)</span>
+
+                        </div>
+
+
+                </div>
+
+            </td>
+        </tr>
+    </tbody></table>
+    <div id="collect_form_6311303"></div>
+    <p class="ul"></p>
+    <table width="100%" class="">
+        <tbody><tr class="item">
+            <td width="100" valign="top">
+                
+
+                    <a class="nbg" href="https://movie.douban.com/subject/26754513/" title="人生密密缝">
+                        <img src="https://img3.doubanio.com/view/movie_poster_cover/spst/public/p2385400300.webp" width="75" alt="人生密密缝" class="">
+                    </a>
+            </td>
+
+            <td valign="top">
+                
+
+                <div class="pl2">
+
+                    <a href="https://movie.douban.com/subject/26754513/" class="">
+                        人生密密缝
+                        / <span style="font-size:13px;">当他们认真编织的时候 / 当他们认真编织时</span>
+                    </a>
+
+
+
+                    <p class="pl">2017-02-10(柏林电影节) / 2017-02-25(日本) / 生田斗真 / 桐谷健太 / 柿原玲佳 / 米姆拉 / 小池荣子 / 门胁麦 / 田中美佐子 / 柏原收史 / 高桥枫翔 / 品川彻 / 江口德子 / 込江海翔 / 日本 / kareamu.com / 荻上直子 / 127分钟 / 人生密密缝 / 剧情 /...</p>
+
+                    
+
+
+                        
+                        <div class="star clearfix">
+                                <span class="allstar45"></span>
+                                <span class="rating_nums">8.4</span>
+                                <span class="pl">(7385人评价)</span>
+
+                        </div>
+
+
+                </div>
+
+            </td>
+        </tr>
+    </tbody></table>
+    <div id="collect_form_26754513"></div>
+    <p class="ul"></p>
+    <table width="100%" class="">
+        <tbody><tr class="item">
+            <td width="100" valign="top">
+                
+
+                    <a class="nbg" href="https://movie.douban.com/subject/25812712/" title="神偷奶爸3">
+                        <img src="https://img3.doubanio.com/view/movie_poster_cover/spst/public/p2469070974.webp" width="75" alt="神偷奶爸3" class="">
+                    </a>
+            </td>
+
+            <td valign="top">
+                
+
+                <div class="pl2">
+
+                    <a href="https://movie.douban.com/subject/25812712/" class="">
+                        神偷奶爸3
+                        / <span style="font-size:13px;">卑鄙的我3 / 坏蛋奖门人3(港)</span>
+                    </a>
+
+
+
+                    <p class="pl">2017-06-14(安锡动画电影节) / 2017-06-30(美国) / 2017-07-07(中国大陆) / 史蒂夫·卡瑞尔 / 克里斯汀·韦格 / 崔·帕克 / 米兰达·卡斯格拉夫 / 达纳·盖尔 / 内芙·沙雷尔 / 皮埃尔·科凡 / 史蒂夫·库根 / 朱莉·安德鲁斯 / 珍妮·斯蕾特 / 迈克尔·贝亚蒂...</p>
+
+                    
+
+
+                        
+                        <div class="star clearfix">
+                                <span class="allstar35"></span>
+                                <span class="rating_nums">6.9</span>
+                                <span class="pl">(98203人评价)</span>
+
+                        </div>
+
+
+                </div>
+
+            </td>
+        </tr>
+    </tbody></table>
+    <div id="collect_form_25812712"></div>
+    <p class="ul"></p>
+    <table width="100%" class="">
+        <tbody><tr class="item">
+            <td width="100" valign="top">
+                
+
+                    <a class="nbg" href="https://movie.douban.com/subject/26035290/" title="悟空传">
+                        <img src="https://img1.doubanio.com/view/movie_poster_cover/spst/public/p2475060299.webp" width="75" alt="悟空传" class="">
+                    </a>
+            </td>
+
+            <td valign="top">
+                
+
+                <div class="pl2">
+
+                    <a href="https://movie.douban.com/subject/26035290/" class="">
+                        悟空传
+                        / <span style="font-size:13px;">Wukong</span>
+                    </a>
+
+
+                        <span style="font-size: 13px; padding-left: 3px; color: #00A65F;">[可播放]</span>
+
+                    <p class="pl">2017-07-13(中国大陆) / 彭于晏 / 倪妮 / 余文乐 / 俞飞鸿 / 欧豪 / 郑爽 / 乔杉 / 杨迪 / 巴音 / 王德顺 / 中国大陆 / 郭子健 / 123分钟 / 剧情 / 动作 / 奇幻 / 郭子健 Derek Kwok Chi-kin / 今何在 Jeremy Zeng / 黄海 Hai Huang / 范文文 Wenwen Fan / 黄智亨...</p>
+
+                    
+
+
+                        
+                        <div class="star clearfix">
+                                <span class="allstar25"></span>
+                                <span class="rating_nums">5.2</span>
+                                <span class="pl">(110385人评价)</span>
+
+                        </div>
+
+
+                </div>
+
+            </td>
+        </tr>
+    </tbody></table>
+    <div id="collect_form_26035290"></div>
+    <p class="ul"></p>
+    <table width="100%" class="">
+        <tbody><tr class="item">
+            <td width="100" valign="top">
+                
+
+                    <a class="nbg" href="https://movie.douban.com/subject/11600078/" title="目击者之追凶">
+                        <img src="https://img1.doubanio.com/view/movie_poster_cover/spst/public/p2494647817.webp" width="75" alt="目击者之追凶" class="">
+                    </a>
+            </td>
+
+            <td valign="top">
+                
+
+                <div class="pl2">
+
+                    <a href="https://movie.douban.com/subject/11600078/" class="">
+                        目击者之追凶
+                        / <span style="font-size:13px;">Who Killed Cock Robin</span>
+                    </a>
+
+
+
+                    <p class="pl">2017-03-31(台湾) / 2017-06-21(上海电影节) / 庄凯勋 / 许玮甯 / 柯佳嬿 / 李铭顺 / 李淳 / 陈彦允 / 郑志伟 / 汤志伟 / 卜国耕 / 台湾 / 程伟豪 / 117分钟 / 目击者之追凶 / 犯罪 / 悬疑 / 惊悚 / 程伟豪 Wei-hao Cheng / 陈昱俐 / 陈彦齐 / 汉语普通话...</p>
+
+                    
+
+
+                        
+                        <div class="star clearfix">
+                                <span class="allstar40"></span>
+                                <span class="rating_nums">8.1</span>
+                                <span class="pl">(38790人评价)</span>
+
+                        </div>
+
+
+                </div>
+
+            </td>
+        </tr>
+    </tbody></table>
+    <div id="collect_form_11600078"></div>
+    <p class="ul"></p>
+    <table width="100%" class="">
+        <tbody><tr class="item">
+            <td width="100" valign="top">
+                
+
+                    <a class="nbg" href="https://movie.douban.com/subject/25824686/" title="变形金刚5：最后的骑士">
+                        <img src="https://img1.doubanio.com/view/movie_poster_cover/spst/public/p2462475058.webp" width="75" alt="变形金刚5：最后的骑士" class="">
+                    </a>
+            </td>
+
+            <td valign="top">
+                
+
+                <div class="pl2">
+
+                    <a href="https://movie.douban.com/subject/25824686/" class="">
+                        变形金刚5：最后的骑士
+                        / <span style="font-size:13px;">变形金刚：终极战士(港) / 变形金刚5：最终骑士(台)</span>
+                    </a>
+
+
+                        <span style="font-size: 13px; padding-left: 3px; color: #00A65F;">[可播放]</span>
+
+                    <p class="pl">2017-06-21(美国) / 2017-06-23(中国大陆) / 马克·沃尔伯格 / 伊莎贝拉·莫奈 / 劳拉·哈德克 / 安东尼·霍普金斯 / 乔什·杜哈明 / 彼特·库伦 / 约翰·古德曼 / 斯坦利·图齐 / 桑地亚哥·卡布瑞拉 / 吉尔·伯明翰 / 渡边谦 / 约翰·迪·玛吉欧...</p>
+
+                    
+
+
+                        
+                        <div class="star clearfix">
+                                <span class="allstar25"></span>
+                                <span class="rating_nums">4.8</span>
+                                <span class="pl">(112063人评价)</span>
+
+                        </div>
+
+
+                </div>
+
+            </td>
+        </tr>
+    </tbody></table>
+    <div id="collect_form_25824686"></div>
+    <p class="ul"></p>
+    <table width="100%" class="">
+        <tbody><tr class="item">
+            <td width="100" valign="top">
+                
+
+                    <a class="nbg" href="https://movie.douban.com/subject/26884892/" title="大病">
+                        <img src="https://img3.doubanio.com/view/movie_poster_cover/spst/public/p2495329684.webp" width="75" alt="大病" class="">
+                    </a>
+            </td>
+
+            <td valign="top">
+                
+
+                <div class="pl2">
+
+                    <a href="https://movie.douban.com/subject/26884892/" class="">
+                        大病
+                        / <span style="font-size:13px;">爱情昏迷中(台) / 情人眼里巴基斯(港)</span>
+                    </a>
+
+
+
+                    <p class="pl">2017-01-20(圣丹斯电影节) / 2017-07-14(美国) / 库梅尔·南贾尼 / 佐伊·卡赞 / 霍利·亨特 / 雷·罗马诺 / 阿努潘·凯尔 / 泽诺比娅·谢罗夫 / 阿迪勒·阿赫塔尔 / 博·伯翰 / 艾迪·布莱恩特 / 库尔特·布劳诺勒 / 维拉.洛弗尔 / 迈拉·卢克利希亚·泰勒...</p>
+
+                    
+
+
+                        
+                        <div class="star clearfix">
+                                <span class="allstar40"></span>
+                                <span class="rating_nums">7.7</span>
+                                <span class="pl">(4040人评价)</span>
+
+                        </div>
+
+
+                </div>
+
+            </td>
+        </tr>
+    </tbody></table>
+    <div id="collect_form_26884892"></div>
+    <p class="ul"></p>
+    <table width="100%" class="">
+        <tbody><tr class="item">
+            <td width="100" valign="top">
+                
+
+                    <a class="nbg" href="https://movie.douban.com/subject/7154408/" title="猎杀星期一">
+                        <img src="https://img1.doubanio.com/view/movie_poster_cover/spst/public/p2494970558.webp" width="75" alt="猎杀星期一" class="">
+                    </a>
+            </td>
+
+            <td valign="top">
+                
+
+                <div class="pl2">
+
+                    <a href="https://movie.douban.com/subject/7154408/" class="">
+                        猎杀星期一
+                        / <span style="font-size:13px;">超生游击队(豆友译名) / 星期一怎么了</span>
+                    </a>
+
+
+
+                    <p class="pl">2017-08-06(洛迦诺电影节) / 2017-08-18(英国) / 劳米·拉佩斯 / 格伦·克洛斯 / 威廉·达福 / 马尔万·肯扎里 / 克里斯蒂安·鲁贝克 / 帕尔·斯维尔·哈根 / 托米瓦·埃敦 / 凯西·克莱尔 / 卡梅伦·杰克 / 柯尔斯蒂·阿弗顿 / 维加·霍尔 / 马达林·德拉甘...</p>
+
+                    
+
+
+                        
+                        <div class="star clearfix">
+                                <span class="allstar35"></span>
+                                <span class="rating_nums">6.8</span>
+                                <span class="pl">(10551人评价)</span>
+
+                        </div>
+
+
+                </div>
+
+            </td>
+        </tr>
+    </tbody></table>
+    <div id="collect_form_7154408"></div>
+</div>
+
+
+    </div>
