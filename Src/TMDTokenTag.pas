@@ -151,9 +151,9 @@ type
       aStartWithCurrent: Boolean = True): Boolean; stdcall;
 
     // 获取字符串 - 从当前位置直到尾部结束
-    procedure GetStringToEof; stdcall;
+    function GetStringToEof: string; stdcall;
     // 获取字符串 - 从字符串开始(第一个)到当前位置
-    procedure GetStringFromFirst; stdcall;
+    function GetStringFromFirst: string; stdcall;
     // 当前位置的字符
     function CurrentChar: Char; stdcall;
     // 移动位置 +-
@@ -235,8 +235,8 @@ type
       True): Boolean; stdcall;
     function GetSize: Integer; stdcall;
     function GetStr(aStartPosition, aCount: Integer): string; stdcall; inline;
-    procedure GetStringFromFirst; stdcall;
-    procedure GetStringToEof; stdcall;
+    function GetStringFromFirst: string; stdcall;
+    function GetStringToEof: string; stdcall;
     function GetTag(const aLeftTag, aRightTag: string; const aMoveDirection:
       TTMDDirection = Next): Boolean; stdcall;
     function GetToken(const aWord: string; const aMoveDirection: TTMDDirection =
@@ -954,15 +954,15 @@ begin
   end;
 end;
 
-procedure TTMDStringTokenTag.GetStringFromFirst;
+function TTMDStringTokenTag.GetStringFromFirst: string;
 begin
-  FValue := GetStr(STARTPOSITION, GetPosition);
+  Result := GetStr(STARTPOSITION, GetPosition);
 end;
 
-procedure TTMDStringTokenTag.GetStringToEof;
+function TTMDStringTokenTag.GetStringToEof: string;
 begin
   // 从当前指针位置拷贝字符串直到结束
-  FValue := GetStr(FPosition, GetLength - FPosition + 1);
+  Result := GetStr(FPosition, GetLength - FPosition + 1);
   GoLast;
 end;
 

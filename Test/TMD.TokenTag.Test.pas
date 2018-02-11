@@ -534,16 +534,14 @@ procedure TTestTokenTag.GetStringFromFirst(const aMustValue: string; const
   aInitPosition: Integer = NOMOVE);
 begin
   MovePosition(aInitPosition);
-  FTT.GetStringFromFirst;
-  CheckTTValue(aMustValue);
+  CheckValue(aMustValue,FTT.GetStringFromFirst);
 end;
 
 procedure TTestTokenTag.GetStringToEof(const aMustValue: string; const
   aInitPosition: Integer = NOMOVE);
 begin
   MovePosition(aInitPosition);
-  FTT.GetStringToEof;
-  CheckTTValue(aMustValue);
+  CheckValue(aMustValue,FTT.GetStringToEof);
 end;
 
 procedure TTestTokenTag.GoFirst;
