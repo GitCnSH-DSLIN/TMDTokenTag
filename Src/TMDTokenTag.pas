@@ -32,16 +32,21 @@ unit TMDTokenTag;
 interface
 
 uses
-  SysUtils, Variants, System.Math, Classes, StrUtils;
+  SysUtils,
+  Variants,
+  System.Math,
+  Classes,
+  StrUtils;
 
 const
   STARTPOSITION = 1;
-  CHARSIZE = SizeOf(char);
+  CHARSIZE = SizeOf(Char);
 
 type
   TCharCompareFun = function(aChar1, aChar2: Char): Boolean;
 
-  TGoTokenFun = function(const aWord: string): Boolean of object; stdcall;
+  TGoTokenFun = function(const aWord: string; const aWithSkipToken: Boolean =
+    True): Boolean of object; stdcall;
 
   TGetTokenFun = TGoTokenFun;
 
@@ -93,50 +98,67 @@ type
     /// Token
     ///
     // 检测 方向默认向前
-    function ExistsToken(const aWord: string; const aMoveDirection: TTMDDirection = Next): Boolean; stdcall;
+    function ExistsToken(const aWord: string; const aMoveDirection:
+      TTMDDirection = Next): Boolean; stdcall;
 
     // 跳转
-    function GoToken(const aWord: string; const aMoveDirection: TTMDDirection = Next): Boolean; stdcall;
-    function GoNextToken(const aWord: string): Boolean; stdcall;
-    function GoPrevToken(const aWord: string): boolean; stdcall;
-    function GoFirstToken(const aWord: string): Boolean; stdcall;
-    function GoLastToken(const aWord: string): Boolean; stdcall;
+    function GoToken(const aWord: string; const aMoveDirection: TTMDDirection =
+      Next; const aWithSkipToken: Boolean = True): Boolean; stdcall;
+    function GoNextToken(const aWord: string; const aWithSkipToken: Boolean =
+      True): Boolean; stdcall;
+    function GoPrevToken(const aWord: string; const aWithSkipToken: Boolean =
+      True): Boolean; stdcall;
+    function GoFirstToken(const aWord: string; const aWithSkipToken: Boolean =
+      True): Boolean; stdcall;
+    function GoLastToken(const aWord: string; const aStartWithCurrent: Boolean =
+      True; const aWithSkipToken: Boolean = True): Boolean; stdcall;
 
     // 内容
-    function GetToken(const aWord: string; const aMoveDirection: TTMDDirection = Next): Boolean; stdcall;
-    function GetNextToken(const aWord: string): boolean; stdcall;
-    function GetPrevToken(const aWord: string): Boolean; stdcall;
-    function GetFirstToken(const aWord: string): Boolean; stdcall;
-    function GetLastToken(const aWord: string): Boolean; stdcall;
+    function GetToken(const aWord: string; const aMoveDirection: TTMDDirection =
+      Next; const aWithSkipToken: Boolean = True): Boolean; stdcall;
+    function GetNextToken(const aWord: string; const aWithSkipToken: Boolean =
+      True): Boolean; stdcall;
+    function GetPrevToken(const aWord: string; const aWithSkipToken: Boolean =
+      True): Boolean; stdcall;
+    function GetFirstToken(const aWord: string; const aWithSkipToken: Boolean =
+      True): Boolean; stdcall;
+    function GetLastToken(const aWord: string; const aStartWithCurrent: Boolean
+      = True; const aWithSkipToken: Boolean = True): Boolean; stdcall;
 
     ///
     /// Tag
     ///
     // 检测
-    function ExistsTag(const aLeftTag, aRightTag: string; const aMoveDirection: TTMDDirection = Next): Boolean; stdcall;
+    function ExistsTag(const aLeftTag, aRightTag: string; const aMoveDirection:
+      TTMDDirection = Next): Boolean; stdcall;
 
     // Tag 跳转
-    function GoTag(const aLeftTag, aRightTag: string; const aMoveDirection: TTMDDirection = Next): Boolean; stdcall;
+    function GoTag(const aLeftTag, aRightTag: string; const aMoveDirection:
+      TTMDDirection = Next): Boolean; stdcall;
     function GoNextTag(const aLeftTag, aRightTag: string): Boolean; stdcall;
     function GoPrevTag(const aLeftTag, aRightTag: string): Boolean; stdcall;
-    function GoLastTag(const aLeftTag, aRightTag: string): Boolean; stdcall;
+    function GoLastTag(const aLeftTag, aRightTag: string; const
+      aStartWithCurrent: Boolean = True): Boolean; stdcall;
     function GoFirstTag(const aLeftTag, aRightTag: string): Boolean; stdcall;
 
     // Tag 内容
-    function GetTag(const aLeftTag, aRightTag: string; const aMoveDirection: TTMDDirection = Next): Boolean; stdcall;
+    function GetTag(const aLeftTag, aRightTag: string; const aMoveDirection:
+      TTMDDirection = Next): Boolean; stdcall;
     function GetNextTag(const aLeftTag, aRightTag: string): Boolean; stdcall;
     function GetPrevTag(const aLeftTag, aRightTag: string): Boolean; stdcall;
     function GetFirstTag(const aLeftTag, aRightTag: string): Boolean; stdcall;
-    function GetLastTag(const aLeftTag, aRightTag: string): Boolean; stdcall;
+    function GetLastTag(const aLeftTag, aRightTag: string; const
+      aStartWithCurrent: Boolean = True): Boolean; stdcall;
 
     // 获取字符串 - 从当前位置直到尾部结束
-    function GetStringToEof: Boolean; stdcall;
+    procedure GetStringToEof; stdcall;
     // 获取字符串 - 从字符串开始(第一个)到当前位置
-    function GetStringFromFirst: Boolean; stdcall;
+    procedure GetStringFromFirst; stdcall;
     // 当前位置的字符
     function CurrentChar: Char; stdcall;
     // 移动位置 +-
-    function Move(const aMoveCount: Integer; const aDirection: TTMDDirection = Next): Boolean; stdcall;
+    function Move(const aMoveCount: Integer; const aDirection: TTMDDirection =
+      Next; const aFarAsPossible: Boolean = True): Boolean; stdcall;
     // 跳转到字符串 头部 或者 尾部
     procedure GoFirst; stdcall;
     procedure GoLast; stdcall;
@@ -151,7 +173,7 @@ type
   ///
   /// 接口实现
   ///
-  TTMDStringTokenTag = class(TinterfacedObject, IStringTokenTag)
+  TTMDStringTokenTag = class(TInterfacedObject, IStringTokenTag)
   strict private
   private
     FIgnoreCase: Boolean;
@@ -166,53 +188,82 @@ type
     function GetPosition: Integer; stdcall;
     function GetSource: string; stdcall;
     function GetValue: string; stdcall;
+    function MoveNext(const aMoveCount: Integer; const aFarAsPossible: Boolean =
+      True): Boolean;
+    function MovePrev(const aMoveCount: Integer; const aFarAsPossible: Boolean =
+      True): Boolean;
+    function PreparNextToken(const aWord: string; out aTokenPosition: Integer): Boolean;
+    function PreparPrevToken(const aWord: string; out aTokenPosition: Integer): Boolean;
     function ScanNextToken(const aWord: string): Integer; overload; inline;
-    function ScanNextToken(const aWord: string; const aOffset: Integer): Integer; overload; inline;
-    function ScanNextToken(const aWord: string; const aOffset: Integer; const aIgnoreCase: Boolean): Integer; overload; inline;
+    function ScanNextToken(const aWord: string; const aOffset: Integer): Integer;
+      overload; inline;
+    function ScanNextToken(const aWord: string; const aOffset: Integer; const
+      aIgnoreCase: Boolean): Integer; overload; inline;
     function ScanPrevToken(const aWord: string): Integer; overload; inline;
-    function ScanPrevToken(const aWord: string; const aOffset: Integer): Integer; overload; inline;
-    function ScanPrevToken(const aWord: string; const aOffset: Integer; const aIgnoreCase: Boolean): Integer; overload; inline;
+    function ScanPrevToken(const aWord: string; const aOffset: Integer): Integer;
+      overload; inline;
+    function ScanPrevToken(const aWord: string; const aOffset: Integer; const
+      aIgnoreCase: Boolean): Integer; overload; inline;
     procedure SetIgnoreCase(const Value: Boolean); stdcall;
     procedure SetPosition(const Value: Integer); stdcall;
     procedure SetSource(const Value: string);
-    function SkipBlankSpace(const aDirection: TTMDDirection; const aMaxSkipChars: Integer = 0): Boolean;
+    function SkipBlankSpace(const aDirection: TTMDDirection; const aMaxSkipChars:
+      Integer = 0): Boolean;
   protected
   public
-    constructor Create(const aSource: string; const aIgnoreCase: Boolean = False); overload;
+    constructor Create(const aSource: string; const aIgnoreCase: Boolean = False);
+      overload;
     constructor Create; overload;
     function CurrentChar: Char; stdcall;
-    function ExistsTag(const aLeftTag, aRightTag: string; const aMoveDirection: TTMDDirection = Next): Boolean; stdcall;
-    function ExistsToken(const aWord: string; const aMoveDirection: TTMDDirection = Next): Boolean; stdcall;
+    function ExistsTag(const aLeftTag, aRightTag: string; const aMoveDirection:
+      TTMDDirection = Next): Boolean; stdcall;
+    function ExistsToken(const aWord: string; const aMoveDirection:
+      TTMDDirection = Next): Boolean; stdcall;
     function GetFirstTag(const aLeftTag, aRightTag: string): Boolean; stdcall;
-    function GetFirstToken(const aWord: string): Boolean; stdcall;
-    function GetLastTag(const aLeftTag, aRightTag: string): Boolean; stdcall;
-    function GetLastToken(const aWord: string): Boolean; stdcall;
+    function GetFirstToken(const aWord: string; const aWithSkipToken: Boolean =
+      True): Boolean; stdcall;
+    function GetLastTag(const aLeftTag, aRightTag: string; const
+      aStartWithCurrent: Boolean = True): Boolean; stdcall;
+    function GetLastToken(const aWord: string; const aStartWithCurrent: Boolean
+      = True; const aWithSkipToken: Boolean = True): Boolean; stdcall;
     function GetLength: Integer; stdcall;
     function GetNextTag(const aLeftTag, aRightTag: string): Boolean; stdcall;
     function GetPrevTag(const aLeftTag, aRightTag: string): Boolean; stdcall;
-    function GetNextToken(const aWord: string): boolean; stdcall;
-    function GetPrevToken(const aWord: string): Boolean; stdcall;
+    function GetNextToken(const aWord: string; const aWithSkipToken: Boolean =
+      True): Boolean; stdcall;
+    function GetPrevToken(const aWord: string; const aWithSkipToken: Boolean =
+      True): Boolean; stdcall;
     function GetSize: Integer; stdcall;
     function GetStr(aStartPosition, aCount: Integer): string; stdcall; inline;
-    function GetStringFromFirst: Boolean; stdcall;
-    function GetStringToEof: Boolean; stdcall;
-    function GetTag(const aLeftTag, aRightTag: string; const aMoveDirection: TTMDDirection = Next): Boolean; stdcall;
-    function GetToken(const aWord: string; const aMoveDirection: TTMDDirection = Next): Boolean; stdcall;
+    procedure GetStringFromFirst; stdcall;
+    procedure GetStringToEof; stdcall;
+    function GetTag(const aLeftTag, aRightTag: string; const aMoveDirection:
+      TTMDDirection = Next): Boolean; stdcall;
+    function GetToken(const aWord: string; const aMoveDirection: TTMDDirection =
+      Next; const aWithSkipToken: Boolean = True): Boolean; stdcall;
     procedure GoFirst; stdcall;
     function GoFirstTag(const aLeftTag, aRightTag: string): Boolean; stdcall;
-    function GoFirstToken(const aWord: string): Boolean; stdcall;
+    function GoFirstToken(const aWord: string; const aWithSkipToken: Boolean =
+      True): Boolean; stdcall;
     procedure GoLast; stdcall;
-    function GoLastTag(const aLeftTag, aRightTag: string): Boolean; stdcall;
-    function GoLastToken(const aWord: string): Boolean; stdcall;
+    function GoLastTag(const aLeftTag, aRightTag: string; const
+      aStartWithCurrent: Boolean = True): Boolean; stdcall;
+    function GoLastToken(const aWord: string; const aStartWithCurrent: Boolean =
+      True; const aWithSkipToken: Boolean = True): Boolean; stdcall;
     function GoNextTag(const aLeftTag, aRightTag: string): Boolean; stdcall;
     function GoPrevTag(const aLeftTag, aRightTag: string): Boolean; stdcall;
-    function GoNextToken(const aWord: string): Boolean; stdcall;
-    function GoPrevToken(const aWord: string): boolean; stdcall;
-    function GoTag(const aLeftTag, aRightTag: string; const aMoveDirection: TTMDDirection = Next): Boolean; stdcall;
-    function GoToken(const aWord: string; const aMoveDirection: TTMDDirection = Next): Boolean; stdcall;
+    function GoNextToken(const aWord: string; const aWithSkipToken: Boolean =
+      True): Boolean; stdcall;
+    function GoPrevToken(const aWord: string; const aWithSkipToken: Boolean =
+      True): Boolean; stdcall;
+    function GoTag(const aLeftTag, aRightTag: string; const aMoveDirection:
+      TTMDDirection = Next): Boolean; stdcall;
+    function GoToken(const aWord: string; const aMoveDirection: TTMDDirection =
+      Next; const aWithSkipToken: Boolean = True): Boolean; stdcall;
     function IsEof: Boolean; stdcall;
     function IsFirst: Boolean; stdcall;
-    function Move(const aMoveCount: Integer; const aDirection: TTMDDirection = Next): Boolean; stdcall;
+    function Move(const aMoveCount: Integer; const aDirection: TTMDDirection =
+      Next; const aFarAsPossible: Boolean = True): Boolean; stdcall;
     // 字符移动控制
     function NextChar: Char; stdcall;
     // 跳过指定数量的空白字符
@@ -231,19 +282,23 @@ function CharCompare(aChar1, aChar2: Char): Boolean;
 
 function CharICompare(aChar1, aChar2: Char): Boolean;
 
-function GetCharCompareFun(aIgnoreCase: Boolean = false): TCharCompareFun; inline;
+function GetCharCompareFun(aIgnoreCase: Boolean = False): TCharCompareFun; inline;
 
 function CharLeftScan(aStr: PChar; aChar: Char; aIgnoreCase: Boolean = False): PChar;
 
-function CharRightScan(aStr: Pchar; aChar: Char; aIgnoreCase: Boolean = False): PChar;
+function CharRightScan(aStr: PChar; aChar: Char; aIgnoreCase: Boolean = False): PChar;
 
-function StrNextPos(const Source, SubStr: PChar; const aIgnoreCase: Boolean = False): Pchar;
+function StrNextPos(const Source, SubStr: PChar; const aIgnoreCase: Boolean =
+  False): PChar;
 
-function StrPrevPos(const Source: Pchar; SubStr: pchar; Offset: Integer = 0; aIgnoreCase: Boolean = False): PChar;
+function StrPrevPos(const Source: PChar; SubStr: PChar; Offset: Integer = 0;
+  aIgnoreCase: Boolean = False): PChar;
 
-function StringPrevScan(const aSource: string; aScanStr: string; aOffset: Integer = 1; aIgnoreCase: Boolean = False): Integer;
+function StringPrevScan(const aSource: string; aScanStr: string; aOffset:
+  Integer = 1; aIgnoreCase: Boolean = False): Integer;
 
-function StringNextScan(const aSource, aScanStr: string; const aOffset: Integer = 1; const aIgnoreCase: Boolean = False): Integer;
+function StringNextScan(const aSource, aScanStr: string; const aOffset: Integer
+  = 1; const aIgnoreCase: Boolean = False): Integer;
 
 const
   Char_StartIndex = 1;
@@ -266,7 +321,7 @@ begin
   Result := (UpCase(aChar1) = UpCase(aChar2));
 end;
 
-function GetCharCompareFun(aIgnoreCase: Boolean = false): TCharCompareFun;
+function GetCharCompareFun(aIgnoreCase: Boolean = False): TCharCompareFun;
 begin
   if aIgnoreCase then
   begin
@@ -281,10 +336,10 @@ end;
 ///
 /// 从右往左扫描字符
 ///
-function CharRightScan(aStr: Pchar; aChar: Char; aIgnoreCase: Boolean = False): PChar;
+function CharRightScan(aStr: PChar; aChar: Char; aIgnoreCase: Boolean = False): PChar;
 var
   LCharCompareFun: TCharCompareFun;
-  LPStr: Pchar;
+  LPStr: PChar;
 begin
   Result := nil;
   if (aStr^ = #0) or (aChar = #0) then
@@ -294,7 +349,7 @@ begin
 
   LCharCompareFun := GetCharCompareFun(aIgnoreCase);
   LPStr := aStr + StrLen(aStr);
-  while true do
+  while True do
   begin
 
     if (LPStr = aStr) then
@@ -315,7 +370,7 @@ end;
 ///
 function CharLeftScan(aStr: PChar; aChar: Char; aIgnoreCase: Boolean = False): PChar;
 var
-  LPStr: Pchar;
+  LPStr: PChar;
   LCharCompareFun: TCharCompareFun;
 begin
   Result := nil;
@@ -344,7 +399,8 @@ end;
 ///
 /// 向前查找字符串
 ///
-function StrNextPos(const Source, SubStr: PChar; const aIgnoreCase: Boolean = False): Pchar;
+function StrNextPos(const Source, SubStr: PChar; const aIgnoreCase: Boolean =
+  False): PChar;
 var
   LMatchStart, LStr1, LStr2: PChar;
   LCharCompareFun: TCharCompareFun;
@@ -391,18 +447,19 @@ end;
 ///
 /// 向后查找字符串
 ///
-function StrPrevPos(const Source: Pchar; SubStr: pchar; Offset: Integer = 0; aIgnoreCase: Boolean = False): PChar;
+function StrPrevPos(const Source: PChar; SubStr: PChar; Offset: Integer = 0;
+  aIgnoreCase: Boolean = False): PChar;
 var
   LMatchStart, LStr1, LStr2: PChar;
-  LPSub: Pchar;
-  LPSubBase: Pchar;
-  LStrLen: cardinal;
-  LSubLen: cardinal;
+  LPSub: PChar;
+  LPSubBase: PChar;
+  LStrLen: Cardinal;
+  LSubLen: Cardinal;
   LCompareFun: TCharCompareFun;
 begin
   Result := nil;
-  LStrLen := Strlen(Source);
-  LSubLen := Strlen(SubStr);
+  LStrLen := StrLen(Source);
+  LSubLen := StrLen(SubStr);
   if (LStrLen = 0) or (LSubLen = 0) then
   begin
     Exit;
@@ -443,7 +500,8 @@ begin
   end;
 end;
 
-function StringNextScan(const aSource, aScanStr: string; const aOffset: Integer = 1; const aIgnoreCase: Boolean = False): Integer;
+function StringNextScan(const aSource, aScanStr: string; const aOffset: Integer
+  = 1; const aIgnoreCase: Boolean = False): Integer;
 var
   LLen, LScanLen, LStart, I, I2: Integer;
   LSourceRemainLen, LScanRemainLen: Integer;
@@ -454,7 +512,8 @@ begin
   LStart := Max(aOffset, 1);
 
   Result := 0;
-  if (LLen = 0) or (LScanLen = 0) or (LStart < 1) or (LStart > LLen) or (((LStart - 1) + LScanLen) > LLen) then
+  if (LLen = 0) or (LScanLen = 0) or (LStart < 1) or (LStart > LLen) or (((LStart
+    - 1) + LScanLen) > LLen) then
   begin
     Exit;
   end;
@@ -492,7 +551,8 @@ begin
 
 end;
 
-function StringPrevScan(const aSource: string; aScanStr: string; aOffset: Integer = 1; aIgnoreCase: Boolean = False): Integer;
+function StringPrevScan(const aSource: string; aScanStr: string; aOffset:
+  Integer = 1; aIgnoreCase: Boolean = False): Integer;
 var
   LLen, LScanLen, LStart: Integer;
   LSourceRemainLen, LScanRemainLen: Integer;
@@ -504,7 +564,8 @@ begin
   LStart := aOffset;
 
   Result := 0;
-  if (LLen = 0) or (LScanLen = 0) or (LStart < 1) or (LStart > LLen) or (LStart - LScanLen < 0) then
+  if (LLen = 0) or (LScanLen = 0) or (LStart < 1) or (LStart > LLen) or (LStart
+    - LScanLen < 0) then
   begin
     Exit;
   end;
@@ -543,7 +604,8 @@ begin
 
 end;
 
-constructor TTMDStringTokenTag.Create(const aSource: string; const aIgnoreCase: Boolean = False);
+constructor TTMDStringTokenTag.Create(const aSource: string; const aIgnoreCase:
+  Boolean = False);
 begin
   Create();
   SetSource(aSource);
@@ -563,7 +625,8 @@ begin
   Result := FSource[FPosition];
 end;
 
-function TTMDStringTokenTag.ExistsTag(const aLeftTag, aRightTag: string; const aMoveDirection: TTMDDirection = Next): Boolean;
+function TTMDStringTokenTag.ExistsTag(const aLeftTag, aRightTag: string; const
+  aMoveDirection: TTMDDirection = Next): Boolean;
 var
   LSave: Integer;
 begin
@@ -576,15 +639,20 @@ begin
 
 end;
 
-function TTMDStringTokenTag.ExistsToken(const aWord: string; const aMoveDirection: TTMDDirection = Next): Boolean;
+function TTMDStringTokenTag.ExistsToken(const aWord: string; const
+  aMoveDirection: TTMDDirection = Next): Boolean;
 var
+  LPosition: Integer;
   LSave: Integer;
+  LTokenPosition: Integer;
 begin
-  LSave := GetPosition;
-  Result := GoToken(aWord, aMoveDirection);
-  if Result then
+  if aMoveDirection = TTMDDirection.Next then
   begin
-    SetPosition(LSave);
+    Result := PreparNextToken(aWord, LTokenPosition);
+  end
+  else
+  begin
+    Result := PreparPrevToken(aWord, LTokenPosition);
   end;
 end;
 
@@ -601,20 +669,22 @@ begin
   end;
 end;
 
-function TTMDStringTokenTag.GetFirstToken(const aWord: string): Boolean;
+function TTMDStringTokenTag.GetFirstToken(const aWord: string; const
+  aWithSkipToken: Boolean = True): Boolean;
 var
   LSave: Integer;
 begin
   LSave := GetPosition;
   GoFirst;
-  Result := GetNextToken(aWord);
+  Result := GetNextToken(aWord, aWithSkipToken);
   if not Result then
   begin
     SetPosition(LSave);
   end;
 end;
 
-function TTMDStringTokenTag.GetGetTagFun(const aMoveDirection: TTMDDirection = Next): TGetTagFun;
+function TTMDStringTokenTag.GetGetTagFun(const aMoveDirection: TTMDDirection =
+  Next): TGetTagFun;
 begin
   if aMoveDirection = Next then
   begin
@@ -626,7 +696,8 @@ begin
   end;
 end;
 
-function TTMDStringTokenTag.GetGoTagFun(const aMoveDirection: TTMDDirection = Next): TGoTagFun;
+function TTMDStringTokenTag.GetGoTagFun(const aMoveDirection: TTMDDirection =
+  Next): TGoTagFun;
 begin
   if aMoveDirection = Next then
   begin
@@ -638,7 +709,8 @@ begin
   end;
 end;
 
-function TTMDStringTokenTag.GetGetTokenFun(const aMoveDirection: TTMDDirection): TGetTokenFun;
+function TTMDStringTokenTag.GetGetTokenFun(const aMoveDirection: TTMDDirection):
+  TGetTokenFun;
 begin
   if aMoveDirection = Next then
   begin
@@ -650,7 +722,8 @@ begin
   end;
 end;
 
-function TTMDStringTokenTag.GetGoTokenFun(const aMoveDirection: TTMDDirection): TGoTokenFun;
+function TTMDStringTokenTag.GetGoTokenFun(const aMoveDirection: TTMDDirection):
+  TGoTokenFun;
 begin
   if aMoveDirection = Next then
   begin
@@ -668,8 +741,10 @@ begin
   Result := FIgnoreCase;
 end;
 
-function TTMDStringTokenTag.GetLastTag(const aLeftTag, aRightTag: string): Boolean;
+function TTMDStringTokenTag.GetLastTag(const aLeftTag, aRightTag: string; const
+  aStartWithCurrent: Boolean = True): Boolean;
 var
+  LOldPosition, LPosition: Integer;
   LSave, LStart, LEnd, LCount: Integer;
 begin
   LSave := GetPosition;
@@ -682,11 +757,11 @@ begin
   begin
     LEnd := GetPosition + 1;
     Result := GoPrevToken(aLeftTag);
-    Result := (Result and (GetPosition >= LSave));
+    Result := (Result and MoveNext(1) and (GetPosition >= LSave));
 
     if Result then
     begin
-      LStart := GetPosition + Length(aLeftTag) + 1;
+      LStart := GetPosition + Length(aLeftTag);
       LCount := LEnd - LStart;
       FValue := GetStr(LStart, LCount);
       LEnd := LEnd + Length(aRightTag);
@@ -700,26 +775,21 @@ begin
   SetPosition(LEnd);
 end;
 
-function TTMDStringTokenTag.GetLastToken(const aWord: string): Boolean;
+function TTMDStringTokenTag.GetLastToken(const aWord: string; const
+  aStartWithCurrent: Boolean = True; const aWithSkipToken: Boolean = True): Boolean;
 var
   LStart, LPos, LEnd, LCount: Integer;
 begin
   LStart := GetPosition;
-  GoLast;
-  Result := GoPrevToken(aWord);
-  LPos := GetPosition;
-  Result := (Result and (LPos >= LStart));
-
-  if not Result then
+  Result := GoLastToken(aWord, aStartWithCurrent, False);
+  if Result then
   begin
-    SetPosition(LStart);
-    Exit;
+    FValue := GetStr(LStart, (GetPosition - LStart));
+    if aWithSkipToken then
+    begin
+      MoveNext(Length(aWord), True);
+    end;
   end;
-
-  LEnd := LPos;
-  LCount := LEnd - LStart + 1;
-  FValue := GetStr(LStart, LCount);
-  Move(Length(aWord) + 1);
 end;
 
 function TTMDStringTokenTag.GetPosition: Integer;
@@ -756,20 +826,23 @@ procedure TTMDStringTokenTag.SetPosition(const Value: Integer);
 var
   LLen: Cardinal;
 begin
-  LLen := GetLength {+ 1};
-  if Value <= LLen then
+  if Value <> GetPosition then
   begin
-    FPosition := Value;
-  end
-  else
-  begin
-    FPosition := LLen;
-  end;
+    LLen := GetLength;
+    if Value <= LLen then
+    begin
+      FPosition := Value;
+    end
+    else
+    begin
+      FPosition := LLen;
+    end;
 
-  // 预防没测试到的极端情况
-  if FPosition <= 0 then
-  begin
-    FPosition := 1;
+    // 预防没测试到的极端情况
+    if FPosition <= 0 then
+    begin
+      FPosition := 1;
+    end;
   end;
 end;
 
@@ -786,113 +859,83 @@ end;
 
 function TTMDStringTokenTag.GetNextTag(const aLeftTag, aRightTag: string): Boolean;
 var
-  LScanPos, LStart, LLen, LCount: Integer;
+  LOldPosition, LStart: Integer;
 begin
-  Result := (not IsEof);
+  LOldPosition := GetPosition;
+  Result := GoNextToken(aLeftTag, True);
   if Result then
   begin
-    LScanPos := ScanNextToken(aLeftTag);
-    Result := (LScanPos > 0);
+    LStart := GetPosition;
+    Result := GoNextToken(aRightTag, False);
     if Result then
     begin
-      LStart := LScanPos + Length(aLeftTag);
-      LLen := GetLength;
-      Result := (LStart <= LLen);
-      if Result then
-      begin
-        LScanPos := ScanNextToken(aRightTag, LStart);
-        Result := (LScanPos > 0);
-        if Result then
-        begin
-          LCount := (LScanPos - LStart);
-          if LCount > 0 then
-          begin
-            FValue := GetStr(LStart, LCount);
-          end
-          else
-          begin
-            FValue := '';
-          end;
-          SetPosition(Min(LScanPos + Length(aRightTag), LLen));
-        end;
-      end;
+      FValue := GetStr(LStart, GetPosition - LStart);
+      MoveNext(Length(aRightTag));
+    end
+    else
+    begin
+      SetPosition(LOldPosition);
     end;
-
   end;
-
 end;
 
 function TTMDStringTokenTag.GetPrevTag(const aLeftTag, aRightTag: string): Boolean;
 var
-  LScanPos, LEnd, LPosition, LStart, LCount: Integer;
+  LOldPosition: Integer;
 begin
-  Result := (not IsFirst);
+  LOldPosition := GetPosition;
+  Result := GoPrevToken(aRightTag, True);
   if Result then
   begin
-    LScanPos := ScanPrevToken(aRightTag);
-    Result := (LScanPos > 0);
-    if Result then
+    if IsFirst then
     begin
-      LEnd := LScanPos - Length(aRightTag);
-      Result := (LEnd >= 1);
-      if Result then
-      begin
-        LScanPos := ScanPrevToken(aLeftTag, LEnd);
-        Result := (LScanPos > 0);
-        if Result then
-        begin
-          LPosition := LScanPos;
-          LStart := LPosition + 1;
-          LCount := LEnd - LStart + 1;
+      Result := ((Length(aLeftTag) = 1) and (CurrentChar = aLeftTag));
+    end
+    else
+    begin
+      Result := GetPrevToken(aLeftTag, True);
+    end;
 
-          if LCount > 0 then
-          begin
-            FValue := GetStr(LStart, LCount);
-          end
-          else
-          begin
-            FValue := '';
-          end;
-          SetPosition(Max(LPosition - Length(aLeftTag), 1));
-        end;
-
-      end;
+    if not Result then
+    begin
+      SetPosition(LOldPosition);
     end;
   end;
 end;
 
-function TTMDStringTokenTag.GetNextToken(const aWord: string): boolean;
+function TTMDStringTokenTag.GetNextToken(const aWord: string; const
+  aWithSkipToken: Boolean = True): Boolean;
 var
-  LScanPos, LStart: Integer;
+  LStart: Integer;
 begin
-  Result := (not IsEof);
+  LStart := GetPosition;
+  Result := GoNextToken(aWord, False);
   if Result then
   begin
-    LScanPos := ScanNextToken(aWord);
-    Result := (LScanPos > 0);
-    if Result then
+    FValue := GetStr(LStart, (GetPosition - LStart));
+    if aWithSkipToken then
     begin
-      LStart := GetPosition;
-      FValue := GetStr(LStart, LScanPos - LStart);
-      SetPosition(Min(LScanPos + Length(aWord), GetLength));
+      MoveNext(Length(aWord), True);
     end;
   end;
 end;
 
-function TTMDStringTokenTag.GetPrevToken(const aWord: string): Boolean;
+function TTMDStringTokenTag.GetPrevToken(const aWord: string; const
+  aWithSkipToken: Boolean = True): Boolean;
 var
-  LScanPos, LEnd: Integer;
+  LScanPos: Integer;
+  LEnd, LStart: Integer;
 begin
-  Result := (not IsFirst);
+  LEnd := GetPosition;
+  Result := GoPrevToken(aWord, False);
   if Result then
   begin
-    LEnd := GetPosition;
-    LScanPos := ScanPrevToken(aWord);
-    Result := (LScanPos > 0);
-    if Result then
+    LStart := GetPosition;
+    FValue := GetStr(LStart + 1, LEnd - LStart);
+
+    if aWithSkipToken then
     begin
-      FValue := GetStr(Min(LEnd, LScanPos + 1), LEnd - LScanPos);
-      SetPosition(Max(LScanPos - Length(aWord), 1));
+      MovePrev(Length(aWord), True);
     end;
   end;
 
@@ -905,33 +948,26 @@ end;
 
 function TTMDStringTokenTag.GetStr(aStartPosition, aCount: Integer): string;
 begin
-  Result := Copy(FSource, aStartPosition, aCount);
-end;
-
-function TTMDStringTokenTag.GetStringFromFirst: Boolean;
-begin
-  Result := (not IsFirst);
-  if Result then
+  if aCount > 0 then
   begin
-    FValue := GetStr(1, GetPosition);
-    //GoFirst
-    //Result := IsFirst;
+    Result := Copy(FSource, aStartPosition, aCount);
   end;
 end;
 
-function TTMDStringTokenTag.GetStringToEof: Boolean;
+procedure TTMDStringTokenTag.GetStringFromFirst;
+begin
+  FValue := GetStr(STARTPOSITION, GetPosition);
+end;
+
+procedure TTMDStringTokenTag.GetStringToEof;
 begin
   // 从当前指针位置拷贝字符串直到结束
-  Result := (not IsEof);
-  if Result then
-  begin
-    FValue := GetStr(FPosition, GetLength - FPosition + 1);
-    GoLast;
-    Result := IsEof;
-  end;
+  FValue := GetStr(FPosition, GetLength - FPosition + 1);
+  GoLast;
 end;
 
-function TTMDStringTokenTag.GetTag(const aLeftTag, aRightTag: string; const aMoveDirection: TTMDDirection = Next): Boolean;
+function TTMDStringTokenTag.GetTag(const aLeftTag, aRightTag: string; const
+  aMoveDirection: TTMDDirection = Next): Boolean;
 var
   LFun: TGetTagFun;
 begin
@@ -939,12 +975,13 @@ begin
   Result := LFun(aLeftTag, aRightTag);
 end;
 
-function TTMDStringTokenTag.GetToken(const aWord: string; const aMoveDirection: TTMDDirection = Next): Boolean;
+function TTMDStringTokenTag.GetToken(const aWord: string; const aMoveDirection:
+  TTMDDirection = Next; const aWithSkipToken: Boolean = True): Boolean;
 var
   LFun: TGetTokenFun;
 begin
   LFun := GetGetTokenFun(aMoveDirection);
-  Result := LFun(aWord);
+  Result := LFun(aWord, aWithSkipToken);
 end;
 
 function TTMDStringTokenTag.GoFirstTag(const aLeftTag, aRightTag: string): Boolean;
@@ -960,13 +997,14 @@ begin
   end;
 end;
 
-function TTMDStringTokenTag.GoFirstToken(const aWord: string): Boolean;
+function TTMDStringTokenTag.GoFirstToken(const aWord: string; const
+  aWithSkipToken: Boolean = True): Boolean;
 var
   LSave: Integer;
 begin
   LSave := GetPosition;
   GoFirst;
-  Result := Self.GoNextToken(aWord);
+  Result := Self.GoNextToken(aWord, aWithSkipToken);
   if not Result then
   begin
     SetPosition(LSave);
@@ -978,135 +1016,152 @@ begin
   SetPosition(GetLength);
 end;
 
-function TTMDStringTokenTag.GoLastTag(const aLeftTag, aRightTag: string): Boolean;
+function TTMDStringTokenTag.GoLastTag(const aLeftTag, aRightTag: string; const
+  aStartWithCurrent: Boolean = True): Boolean;
 var
-  LPos, LEnd: Integer;
+  LOldPosition, LPosition: Integer;
 begin
-  LPos := GetPosition;
-
-  Result := GoLastToken(aRightTag);
+  LOldPosition := GetPosition;
+  Result := GoLastToken(aRightTag, aStartWithCurrent, True);
   if Result then
   begin
-    LEnd := GetPosition;
-    Result := GoPrevToken(aLeftTag);
-    Result := (Result and (GetPosition >= LPos));
-    if Result then
+    LPosition := GetPosition;
+    Result := GoPrevToken(aLeftTag, True);
+
+    if aStartWithCurrent then
     begin
-      LPos := LEnd;
+      Result := (Result and (GetPosition >= LOldPosition));
+    end
+    else
+    begin
+      Result := (Result and True);
     end;
+
+    if not Result then
+    begin
+      LPosition := LOldPosition;
+    end;
+
+    SetPosition(LPosition);
   end;
-  SetPosition(LPos);
 end;
 
-function TTMDStringTokenTag.GoLastToken(const aWord: string): Boolean;
+function TTMDStringTokenTag.GoLastToken(const aWord: string; const
+  aStartWithCurrent: Boolean = True; const aWithSkipToken: Boolean = True): Boolean;
 var
-  LStart, LPos: Integer;
+  LOldPosition, LTokenPosition: Integer;
+  LWordLen: Integer;
 begin
-  LStart := GetPosition;
+  //转到最后一个 token, aStartWithCurrent 开关可以设定是否从当前位置开始,默认是关闭的
+
+  LOldPosition := GetPosition;
   GoLast();
-  Result := GoPrevToken(aWord);
-  LPos := GetPosition;
-  Result := (Result and (LPos >= LStart));
+
+  Result := GoPrevToken(aWord, False);
   if Result then
   begin
-    LPos := Min(LPos + Length(aWord) + 1, GetLength);
-  end
-  else
-  begin
-    LPos := LStart;
+    LWordLen := Length(aWord);
+    LTokenPosition := GetPosition - LWordLen + 1;
+
+    if aStartWithCurrent then
+    begin
+      Result := (LTokenPosition >= LOldPosition);
+    end
+    else
+    begin
+      Result := True;
+    end;
+
+    if Result then
+    begin
+      SetPosition(LTokenPosition);
+      if aWithSkipToken then
+      begin
+        MoveNext(LWordLen, True);
+      end;
+    end
+    else
+    begin
+      SetPosition(LOldPosition);
+    end;
   end;
-  SetPosition(LPos);
 end;
 
 function TTMDStringTokenTag.GoNextTag(const aLeftTag, aRightTag: string): Boolean;
 var
-  LScanPos, LStart: Integer;
+  LOldPosition: Integer;
 begin
-  Result := (not IsEof);
+  LOldPosition := GetPosition;
+  Result := GoNextToken(aLeftTag, True);
   if Result then
   begin
-    LScanPos := ScanNextToken(aLeftTag);
-    Result := (LScanPos > 0);
-    if Result then
+    Result := GoNextToken(aRightTag, True);
+    if not Result then
     begin
-      LStart := LScanPos + Length(aLeftTag);
-      Result := (LStart <= GetLength);
-      if Result then
-      begin
-        LScanPos := ScanNextToken(aRightTag, LStart);
-        Result := (LScanPos > 0);
-        if Result then
-        begin
-          SetPosition(LScanPos + Length(aRightTag));
-        end;
-      end;
+      SetPosition(LOldPosition);
     end;
   end;
-
 end;
 
 function TTMDStringTokenTag.GoPrevTag(const aLeftTag, aRightTag: string): Boolean;
 var
-  LScanPos, LEnd: Integer;
+  LOldPosition: Integer;
 begin
-  Result := (not IsFirst);
+  LOldPosition := GetPosition;
+  Result := GoPrevToken(aRightTag, True);
   if Result then
   begin
-    LScanPos := ScanPrevToken(aRightTag);
-    Result := (LScanPos > 0);
-    if Result then
+    // todo: 这个条件补丁很low.
+    if IsFirst then
     begin
-      LEnd := LScanPos - Length(aRightTag);
-      Result := (LEnd >= 1);
-      if Result then
-      begin
-        LScanPos := ScanPrevToken(aLeftTag, LEnd);
-        Result := (LScanPos > 0);
-        if Result then
-        begin
-          SetPosition(Max(LScanPos - Length(aLeftTag), 1));
-        end;
-      end;
+      Result := ((Length(aLeftTag) = 1) and (CurrentChar = aLeftTag));
+    end
+    else
+    begin
+      Result := GoPrevToken(aLeftTag, True);
+    end;
 
+    if not Result then
+    begin
+      SetPosition(LOldPosition);
     end;
   end;
 end;
 
-function TTMDStringTokenTag.GoNextToken(const aWord: string): Boolean;
+function TTMDStringTokenTag.GoNextToken(const aWord: string; const
+  aWithSkipToken: Boolean = True): Boolean;
 var
-  LScanPos: Integer;
+  LTokenPosition: Integer;
 begin
-  Result := (not IsEof);
+  Result := PreparNextToken(aWord, LTokenPosition);
   if Result then
   begin
-    LScanPos := ScanNextToken(aWord);
-    Result := (LScanPos > 0);
-    if Result then
+    SetPosition(LTokenPosition);
+    if aWithSkipToken then
     begin
-      SetPosition(Min(GetLength, LScanPos + Length(aWord)));
+      MoveNext(Length(aWord), True);
     end;
   end;
-
 end;
 
-function TTMDStringTokenTag.GoPrevToken(const aWord: string): boolean;
+function TTMDStringTokenTag.GoPrevToken(const aWord: string; const
+  aWithSkipToken: Boolean = True): Boolean;
 var
-  LScanPos: Integer;
+  LTokenPosition: Integer;
 begin
-  Result := (not IsFirst);
+  Result := PreparPrevToken(aWord, LTokenPosition);
   if Result then
   begin
-    LScanPos := ScanPrevToken(aWord);
-    Result := (LScanPos > 0);
-    if Result then
+    SetPosition(LTokenPosition);
+    if aWithSkipToken then
     begin
-      SetPosition(Max(LScanPos - Length(aWord), 1));
+      MovePrev(Length(aWord), True);
     end;
   end;
-
 end;
 
-function TTMDStringTokenTag.GoTag(const aLeftTag, aRightTag: string; const aMoveDirection: TTMDDirection = Next): Boolean;
+function TTMDStringTokenTag.GoTag(const aLeftTag, aRightTag: string; const
+  aMoveDirection: TTMDDirection = Next): Boolean;
 var
   LFun: TGoTagFun;
 begin
@@ -1114,32 +1169,67 @@ begin
   Result := LFun(aLeftTag, aRightTag);
 end;
 
-function TTMDStringTokenTag.GoToken(const aWord: string; const aMoveDirection: TTMDDirection = Next): Boolean;
+function TTMDStringTokenTag.GoToken(const aWord: string; const aMoveDirection:
+  TTMDDirection = Next; const aWithSkipToken: Boolean = True): Boolean;
 var
   LFun: TGoTokenFun;
 begin
   LFun := GetGoTokenFun(aMoveDirection);
-  Result := LFun(aWord);
+  Result := LFun(aWord, aWithSkipToken);
 end;
 
-function TTMDStringTokenTag.Move(const aMoveCount: Integer; const aDirection: TTMDDirection = Next): Boolean;
-var
-  LPos: Integer;
+function TTMDStringTokenTag.Move(const aMoveCount: Integer; const aDirection:
+  TTMDDirection = Next; const aFarAsPossible: Boolean = True): Boolean;
 begin
+  // todo: 当 aFarAsPossible 设定后不论是否足够移动指定的字符,依旧最大化尽可能移动,但是返回值会反馈结果.
   if aDirection = Next then
   begin
-    LPos := GetPosition + aMoveCount;
-    Result := (LPos <= GetLength);
+    Result := MoveNext(aMoveCount, aFarAsPossible);
   end
   else
   begin
-    LPos := GetPosition - aMoveCount;
-    Result := (LPos >= 1);
+    Result := MovePrev(aMoveCount, aFarAsPossible);
   end;
-  if Result then
+end;
+
+function TTMDStringTokenTag.MoveNext(const aMoveCount: Integer; const
+  aFarAsPossible: Boolean = True): Boolean;
+var
+  LPosition, LNewPosition: Integer;
+begin
+  LPosition := GetPosition;
+  LNewPosition := (LPosition + aMoveCount);
+  Result := (LNewPosition <= GetLength);
+
+  if (not Result) then
   begin
-    SetPosition(LPos);
+    if (not aFarAsPossible) then
+    begin
+      Exit;
+    end;
   end;
+
+  SetPosition(Min(LNewPosition, GetLength));
+end;
+
+function TTMDStringTokenTag.MovePrev(const aMoveCount: Integer; const
+  aFarAsPossible: Boolean = True): Boolean;
+var
+  LPosition, LNewPosition: Integer;
+begin
+  LPosition := GetPosition;
+  LNewPosition := (LPosition - aMoveCount);
+  Result := (LNewPosition >= 1);
+
+  if (not Result) then
+  begin
+    if (not aFarAsPossible) then
+    begin
+      Exit;
+    end;
+  end;
+
+  SetPosition(Max(LNewPosition, 1));
 end;
 
 function TTMDStringTokenTag.NextChar: Char;
@@ -1151,6 +1241,28 @@ end;
 function TTMDStringTokenTag.NextSkipBlankSpace(const aMaxSkipChars: Integer = 0): Boolean;
 begin
   Result := SkipBlankSpace(Next, aMaxSkipChars);
+end;
+
+function TTMDStringTokenTag.PreparNextToken(const aWord: string; out
+  aTokenPosition: Integer): Boolean;
+begin
+  Result := (not IsEof);
+  if Result then
+  begin
+    aTokenPosition := ScanNextToken(aWord, GetPosition, FIgnoreCase);
+    Result := (aTokenPosition > 0);
+  end;
+end;
+
+function TTMDStringTokenTag.PreparPrevToken(const aWord: string; out
+  aTokenPosition: Integer): Boolean;
+begin
+  Result := (not IsFirst);
+  if Result then
+  begin
+    aTokenPosition := ScanPrevToken(aWord, GetPosition, FIgnoreCase);
+    Result := (aTokenPosition > 0);
+  end;
 end;
 
 function TTMDStringTokenTag.PrevChar: Char;
@@ -1171,12 +1283,14 @@ begin
   Result := StringNextScan(FSource, aWord, GetPosition, FIgnoreCase);
 end;
 
-function TTMDStringTokenTag.ScanNextToken(const aWord: string; const aOffset: Integer): Integer;
+function TTMDStringTokenTag.ScanNextToken(const aWord: string; const aOffset:
+  Integer): Integer;
 begin
   Result := StringNextScan(FSource, aWord, aOffset, FIgnoreCase);
 end;
 
-function TTMDStringTokenTag.ScanNextToken(const aWord: string; const aOffset: Integer; const aIgnoreCase: Boolean): Integer;
+function TTMDStringTokenTag.ScanNextToken(const aWord: string; const aOffset:
+  Integer; const aIgnoreCase: Boolean): Integer;
 begin
   Result := StringNextScan(FSource, aWord, aOffset, aIgnoreCase);
 end;
@@ -1186,12 +1300,14 @@ begin
   Result := StringPrevScan(FSource, aWord, GetPosition, FIgnoreCase);
 end;
 
-function TTMDStringTokenTag.ScanPrevToken(const aWord: string; const aOffset: Integer): Integer;
+function TTMDStringTokenTag.ScanPrevToken(const aWord: string; const aOffset:
+  Integer): Integer;
 begin
   Result := StringPrevScan(FSource, aWord, aOffset, FIgnoreCase);
 end;
 
-function TTMDStringTokenTag.ScanPrevToken(const aWord: string; const aOffset: Integer; const aIgnoreCase: Boolean): Integer;
+function TTMDStringTokenTag.ScanPrevToken(const aWord: string; const aOffset:
+  Integer; const aIgnoreCase: Boolean): Integer;
 begin
   Result := StringPrevScan(FSource, aWord, aOffset, aIgnoreCase);
 end;
@@ -1201,12 +1317,13 @@ begin
   FIgnoreCase := Value;
 end;
 
-function TTMDStringTokenTag.SkipBlankSpace(const aDirection: TTMDDirection; const aMaxSkipChars: Integer = 0): Boolean;
+function TTMDStringTokenTag.SkipBlankSpace(const aDirection: TTMDDirection;
+  const aMaxSkipChars: Integer = 0): Boolean;
 var
   LMove, LChange: Integer;
 begin
   LMove := 0;
-  Result := false;
+  Result := False;
 
   if aDirection = Next then
   begin

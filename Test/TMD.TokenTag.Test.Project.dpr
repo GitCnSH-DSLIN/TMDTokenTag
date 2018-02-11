@@ -1,4 +1,4 @@
-program TestCli;
+program TMD.TokenTag.Test.Project;
 
 {$IFNDEF TESTINSIGHT}
 {$APPTYPE CONSOLE}
@@ -11,7 +11,7 @@ uses
   DUnitX.Loggers.Console,
   DUnitX.Loggers.Xml.NUnit,
   DUnitX.TestFramework,
-  TMDStringTokenTagTest in 'TMDStringTokenTagTest.pas',
+  TMD.TokenTag.Test in 'TMD.TokenTag.Test.pas',
   TMDTokenTag in '..\Src\TMDTokenTag.pas';
 
 var
@@ -33,7 +33,7 @@ begin
     runner.UseRTTI := True;
     //tell the runner how we will log things
     //Log to the console window
-    logger := TDUnitXConsoleLogger.Create(False);
+    logger := TDUnitXConsoleLogger.Create(true);
     runner.AddLogger(logger);
     //Generate an NUnit compatible XML File
     nunitLogger := TDUnitXXMLNUnitFileLogger.Create(TDUnitX.Options.XMLOutputFile);
